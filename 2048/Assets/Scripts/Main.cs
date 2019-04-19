@@ -17,10 +17,9 @@ public class Main : MonoBehaviour
     void Start()
     {
         holder = GameObject.Find("Holder");
-        //b = new Block(block, new System.Drawing.Point(0, 0));
         Box = new Block[Size][];
         for (int i = 0; i < Size; i++) Box[i] = new Block[Size];
-        Box[0][0] = new Block(block, new Point(0, 0));
+        Box[0][0] = new Block(block, new Point(0, 0), 2);
     }
 
     enum Split { horizontal, vertical };
@@ -42,12 +41,12 @@ public class Main : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            split = (int)Split.horizontal;
+            split = (int)Split.vertical;
             direction = (int)Direction.right;
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            split = (int)Split.horizontal;
+            split = (int)Split.vertical;
             direction = (int)Direction.left;
         }
         if (split == null) return;
@@ -68,6 +67,7 @@ public class Main : MonoBehaviour
         for (int i = 0; i < Size; i++)
         {
             List<Block> TempList = (from t in Temp[i] where t != null select t).ToList();
+            foreach (Block b in TempList) b.Value *= 2;
             Temp[i] = new Block[Size];
             for (int u = 0; u < TempList.Count; u++)
             {
