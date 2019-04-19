@@ -23,7 +23,9 @@ public class Block
     {
         GameObject h = GameObject.Find("Holder");
         Box = MonoBehaviour.Instantiate(g, h.transform);
-        Box.GetComponent<RectTransform>().sizeDelta = new Vector2(h.GetComponent<RectTransform>().rect.size.y/(Main.Size + 1), h.GetComponent<RectTransform>().rect.size.y / (Main.Size + 1));
+        float l = h.GetComponent<RectTransform>().rect.size.y;
+        float r = l / (Main.Size*6+1);
+        Box.GetComponent<RectTransform>().sizeDelta = new Vector2(5*r, 5*r);
         P = p;
         Value = value;
     }
@@ -32,7 +34,9 @@ public class Block
     {
         RectTransform RectBox = Box.GetComponent<RectTransform>();
         RectTransform RectCanvas = GameObject.Find("Holder").GetComponent<RectTransform>();
-        Vector3 VectorBox = new Vector3(RectCanvas.rect.width / Main.Size * p.X + RectBox.rect.width, RectCanvas.rect.height / Main.Size * p.Y + RectBox.rect.height, 0);
+        float l = RectCanvas.rect.size.y;
+        float r = l / (Main.Size * 6 + 1);
+        Vector3 VectorBox = new Vector3((P.X + 1) * r * 6 - 2 * r, (p.Y + 1) * r * 6 - 2 * r, 0);
         Box.GetComponent<RectTransform>().position = VectorBox;
     }
     ~Block()
