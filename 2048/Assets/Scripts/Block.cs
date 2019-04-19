@@ -24,7 +24,7 @@ public class Block
     {
         RectTransform r = Box.GetComponent<RectTransform>();
         RectTransform h = GameObject.Find("Holder").GetComponent<RectTransform>();
-        Vector3 v = new Vector3(h.rect.width / 3 * p.X + r.rect.width, h.rect.height / 3 * p.Y + r.rect.height, 0);
+        Vector3 v = new Vector3(h.rect.width / Main.Size * p.X + r.rect.width, h.rect.height / Main.Size * p.Y + r.rect.height, 0);
         Box.GetComponent<RectTransform>().position = v;
 
     }
