@@ -23,6 +23,7 @@ public class Block
     {
         GameObject h = GameObject.Find("Holder");
         Box = MonoBehaviour.Instantiate(g, h.transform);
+        Box.GetComponent<RectTransform>().sizeDelta = new Vector2(h.GetComponent<RectTransform>().rect.size.y/(Main.Size + 1), h.GetComponent<RectTransform>().rect.size.y / (Main.Size + 1));
         P = p;
         Value = value;
     }

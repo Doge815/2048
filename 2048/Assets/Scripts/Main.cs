@@ -5,6 +5,7 @@ using System.Drawing;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using UnityEngine;
 
 public class Main : MonoBehaviour
 {
@@ -108,6 +109,18 @@ public class Main : MonoBehaviour
                 if (Box[i][u] != null) Box[i][u].P = new Point(u, i);
             }
         }
+        #endregion
+        #region place new block
+        List<Point> places = new List<Point>();
+        for(int i = 0; i < Size; i++)
+        {
+            for(int u = 0; u < Size; u++)
+            {
+                if (Box[i][u] == null) places.Add(new Point(i, u));
+            }
+        }
+        Point TheChosenOne = places[UnityEngine.Random.Range(0, places.Count)];
+        Box[TheChosenOne.X][TheChosenOne.Y] = new Block(block, new Point(TheChosenOne.Y, TheChosenOne.X), 2);
         #endregion
         GC.Collect();
     }
