@@ -29,7 +29,8 @@ public class Main : MonoBehaviour
     {       
         int? split = null;
         int? direction = null;
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        #region input
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             split = (int)Split.horizontal;
             direction = (int)Direction.left;
@@ -50,6 +51,8 @@ public class Main : MonoBehaviour
             direction = (int)Direction.left;
         }
         if (split == null) return;
+        #endregion
+        #region split array
         Block[][] Temp = new Block[Size][];
         for (int i = 0; i < Size; i++) Temp[i] = new Block[Size];
         for(int i = 0; i < Size; i++)
@@ -60,17 +63,20 @@ public class Main : MonoBehaviour
                 else Temp[i][u] = Box[u][i];
             }
         }
-        for(int i = 0; i < Size; i++)
+        #endregion
+        #region move blocks
+        for (int i = 0; i < Size; i++)
         {
-            List<Block> TempList = Temp[i].ToList();
+            List<Block> TempList = (from t in Temp[i] where t != null select t).ToList();
             Temp[i] = new Block[Size];
             for (int u = 0; u < TempList.Count; u++)
             {
-                Temp[i][Size - u - 1] = TempList[u];
                 Temp[i][(direction == (int)Direction.right) ? (Size - u - 1) : (u)] = TempList[u];
             }
         }
-        for(int i = 0; i < Size; i++)
+        #endregion
+        #region rebuild array
+        for (int i = 0; i < Size; i++)
         {
             Box[i] = new Block[Size];
         }
@@ -82,12 +88,15 @@ public class Main : MonoBehaviour
                 else Box[i][u] = Temp[u][i];
             }
         }
-        for(int i = 0; i < Size; i++)
+        #endregion
+        #region set points
+        for (int i = 0; i < Size; i++)
         {
             for(int u = 0; u < Size; u++)
             {
                 if (Box[i][u] != null) Box[i][u].P = new Point(u, i);
             }
         }
+        #endregion
     }
 }
