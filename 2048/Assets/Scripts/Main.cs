@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Drawing;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class Main : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Main : MonoBehaviour
         Box = new Block[Size][];
         for (int i = 0; i < Size; i++) Box[i] = new Block[Size];
         Box[0][0] = new Block(block, new Point(0, 0), 2);
+        Box[0][2] = new Block(block, new Point(2, 0), 2);
     }
 
     enum Split { horizontal, vertical };
@@ -67,12 +69,21 @@ public class Main : MonoBehaviour
         for (int i = 0; i < Size; i++)
         {
             List<Block> TempList = (from t in Temp[i] where t != null select t).ToList();
-            foreach (Block b in TempList) b.Value *= 2;
+            for(int u = 1; u < TempList.Count; u++)
+            {
+                if (TempList[u].Value == TempList[u - 1].Value)
+                {
+                    TempList[u].Value *= 2;
+                    Destroy(TempList[u - 1].Box);
+                    TempList.RemoveAt(u-1);
+                } 
+            }
             Temp[i] = new Block[Size];
             for (int u = 0; u < TempList.Count; u++)
             {
-                Temp[i][(direction == (int)Direction.right) ? (Size - u - 1) : (u)] = TempList[u];
+                Temp[i][(direction == (int)Direction.right) ? (Size - u - 1) : (u)] = TempList[(direction == (int)Direction.right)?(TempList.Count-u - 1):(u)];
             }
+            //if (direction == (int)Direction.right) Array.Reverse(Temp[i]);
         }
         #endregion
         #region rebuild array
@@ -98,5 +109,6 @@ public class Main : MonoBehaviour
             }
         }
         #endregion
+        GC.Collect();
     }
 }

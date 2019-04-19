@@ -34,4 +34,8 @@ public class Block
         Vector3 VectorBox = new Vector3(RectCanvas.rect.width / Main.Size * p.X + RectBox.rect.width, RectCanvas.rect.height / Main.Size * p.Y + RectBox.rect.height, 0);
         Box.GetComponent<RectTransform>().position = VectorBox;
     }
+    ~Block()
+    {
+        MonoBehaviour.Destroy(Box);
+    }
 }
