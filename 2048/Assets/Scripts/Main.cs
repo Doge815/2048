@@ -14,10 +14,14 @@ public class Main : MonoBehaviour
     private GameObject holder;
     public GameObject Holder { get => holder; }
     Block b;
-    
+    private float min;
+    public float Min { get => min; private set => min = value; }
+
     void Start()
     {
         holder = GameObject.Find("Holder");
+        Min = new List<float> { holder.GetComponent<RectTransform>().rect.size.x, holder.GetComponent<RectTransform>().rect.size.y }.Min();
+
         Box = new Block[Size][];
         for (int i = 0; i < Size; i++) Box[i] = new Block[Size];
         Box[0][0] = new Block(block, new Point(0, 0), 2);
