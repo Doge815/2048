@@ -11,10 +11,13 @@ public class Main : MonoBehaviour
 {
     public static int Size { get; set; } = 3;
     private Block[][] Box { get; set; }
+
     public GameObject block;
+    public GameObject bg;
+
     private GameObject holder;
     public GameObject Holder { get => holder; }
-    Block b;
+    //Block b;
     private static float min;
     public static float Min { get => min; private set => min = value; }
 
@@ -26,12 +29,20 @@ public class Main : MonoBehaviour
         Box = new Block[Size][];
         for (int i = 0; i < Size; i++) Box[i] = new Block[Size];
         #region background
-        GameObject g = Instantiate(block, holder.transform);
+        GameObject g = Instantiate(bg, holder.transform);
         g.GetComponent<RectTransform>().sizeDelta = new Vector2(Min, Min);
-        Destroy(g.GetComponentInChildren<TextMeshProUGUI>());
+        Texture t = g.GetComponent<Image>().mainTexture;
+        GUI.DrawTexture(new Rect(10, 10, 10, 60), t, ScaleMode.ScaleToFit, true, 10f);
+
         #endregion
         Box[0][0] = new Block(block, new Point(0, 0), 2);
         Box[0][2] = new Block(block, new Point(2, 0), 2);
+    }
+    void OnGUI()
+    {
+        GameObject g = GameObject.Find("BackGround(Clone)");
+        Texture t = g.GetComponent<Image>().mainTexture;
+        GUI.DrawTexture(new Rect(10, 10, 10, 60), t, ScaleMode.ScaleToFit, true, 10f);
     }
 
     enum Split { horizontal, vertical };

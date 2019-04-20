@@ -53,8 +53,8 @@ public class Block
     {
         RectTransform RectBox = Box.GetComponent<RectTransform>();
         RectTransform RectCanvas = GameObject.Find("Holder").GetComponent<RectTransform>();
-        float l = RectCanvas.rect.size.y;
-        float r = l / (Main.Size * 6 + 1);
+        //float l = RectCanvas.rect.size.y;
+        float r = Main.Min / (Main.Size * 6 + 1);
         Vector3 VectorBox = new Vector3((P.X + 1) * r * 6 - 2 * r + (RectCanvas.rect.width / 2 - Main.Min / 2), (p.Y + 1) * r * 6 - 2 * r + (RectCanvas.rect.height / 2 - Main.Min / 2), 0);
         Box.GetComponent<RectTransform>().position = VectorBox;
     }
