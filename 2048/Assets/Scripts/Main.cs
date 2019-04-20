@@ -19,6 +19,9 @@ public class Main : MonoBehaviour
     public GameObject Holder { get => holder; }
     private static float min;
     public static float Min { get => min; private set => min = value; }
+
+    private static int score = 0;
+    public static int Score { get => score; private set => score = value; }
     void Start()
     {
         holder = GameObject.Find("Holder");
@@ -32,6 +35,7 @@ public class Main : MonoBehaviour
         #endregion
         Box[0][0] = new Block(block, new Point(0, 0), 2);
         Box[0][2] = new Block(block, new Point(2, 0), 2);
+        InvokeRepeating("whynot", 0.5f, 0.1f);
     }
     void OnGUI()
     {
@@ -108,6 +112,7 @@ public class Main : MonoBehaviour
                 if (TempList[u].Value == TempList[u - 1].Value)
                 {
                     TempList[u].Value *= 2;
+                    Score += TempList[u].Value;
                     Destroy(TempList[u - 1].Box);
                     TempList.RemoveAt(u - 1);
                 }
@@ -158,9 +163,10 @@ public class Main : MonoBehaviour
         GC.Collect();
     }
 
-
+    int funny = 0;
     private void whynot()
     {
-        move
+        move(funny%2, (funny==1||funny==2)?(1):(0));
+        if (++funny > 3) funny = 0;
     }
 }
