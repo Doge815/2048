@@ -5,6 +5,7 @@ using System.Drawing;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using TMPro;
 
 public class Main : MonoBehaviour
 {
@@ -14,8 +15,8 @@ public class Main : MonoBehaviour
     private GameObject holder;
     public GameObject Holder { get => holder; }
     Block b;
-    private float min;
-    public float Min { get => min; private set => min = value; }
+    private static float min;
+    public static float Min { get => min; private set => min = value; }
 
     void Start()
     {
@@ -24,6 +25,11 @@ public class Main : MonoBehaviour
 
         Box = new Block[Size][];
         for (int i = 0; i < Size; i++) Box[i] = new Block[Size];
+        #region background
+        GameObject g = Instantiate(block, holder.transform);
+        g.GetComponent<RectTransform>().sizeDelta = new Vector2(Min, Min);
+        Destroy(g.GetComponentInChildren<TextMeshProUGUI>());
+        #endregion
         Box[0][0] = new Block(block, new Point(0, 0), 2);
         Box[0][2] = new Block(block, new Point(2, 0), 2);
     }
