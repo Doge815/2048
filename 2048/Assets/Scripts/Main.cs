@@ -14,6 +14,7 @@ public class Main : MonoBehaviour
 
     public GameObject block;
     public GameObject bg;
+    private GameObject Scoreboard;
 
     private GameObject holder;
     public GameObject Holder { get => holder; }
@@ -32,10 +33,19 @@ public class Main : MonoBehaviour
         #region background
         GameObject g = Instantiate(bg, holder.transform);
         g.GetComponent<RectTransform>().sizeDelta = new Vector2(Min, Min);
+
+        Scoreboard = Instantiate(new GameObject(), Holder.transform);
+        TextMeshPro t = Scoreboard.gameObject.AddComponent<TextMeshPro>();
+        t.rectTransform.anchoredPosition = new Vector2(0, Holder.GetComponent<RectTransform>().rect.size.y);
+        t.rectTransform.position = new Vector3(Min / 4, Min / -4, 0);
+        t.enableAutoSizing = true;
+        t.fontSizeMin = 2;
+        t.fontSizeMax = 800;
+        t.text = "lol";
         #endregion
         Box[0][0] = new Block(block, new Point(0, 0), 2);
         Box[0][2] = new Block(block, new Point(2, 0), 2);
-        InvokeRepeating("whynot", 0.5f, 0.1f);
+        //InvokeRepeating("whynot", 0.5f, 0.1f);
     }
     void OnGUI()
     {
