@@ -38,7 +38,6 @@ public class Main : MonoBehaviour
     {
         GameObject g = GameObject.Find("BackGround(Clone)");
         Texture t = g.GetComponent<Image>().mainTexture;
-        //GUI.DrawTexture(new Rect(10, 10, 10, 60), t);
         float r = Min / (Size * 6 + 1);
         for (int i = 0; i < Size + 1; i++)
         {
