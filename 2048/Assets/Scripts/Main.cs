@@ -17,7 +17,6 @@ public class Main : MonoBehaviour
 
     private GameObject holder;
     public GameObject Holder { get => holder; }
-    //Block b;
     private static float min;
     public static float Min { get => min; private set => min = value; }
 
@@ -31,9 +30,6 @@ public class Main : MonoBehaviour
         #region background
         GameObject g = Instantiate(bg, holder.transform);
         g.GetComponent<RectTransform>().sizeDelta = new Vector2(Min, Min);
-        Texture t = g.GetComponent<Image>().mainTexture;
-        GUI.DrawTexture(new Rect(10, 10, 10, 60), t, ScaleMode.ScaleToFit, true, 10f);
-
         #endregion
         Box[0][0] = new Block(block, new Point(0, 0), 2);
         Box[0][2] = new Block(block, new Point(2, 0), 2);
@@ -42,7 +38,13 @@ public class Main : MonoBehaviour
     {
         GameObject g = GameObject.Find("BackGround(Clone)");
         Texture t = g.GetComponent<Image>().mainTexture;
-        GUI.DrawTexture(new Rect(10, 10, 10, 60), t, ScaleMode.ScaleToFit, true, 10f);
+        //GUI.DrawTexture(new Rect(10, 10, 10, 60), t);
+        float r = Min / (Size * 6 + 1);
+        for (int i = 0; i < Size + 1; i++)
+        {
+            Rect a = new Rect(new Vector2(Holder.GetComponent<RectTransform>().rect.size.x / 2 - Min / 2 + i * 6 * r, Holder.GetComponent<RectTransform>().rect.size.y / 2 - Min / 2),new Vector2(r, Holder.GetComponent<RectTransform>().rect.size.y));
+            GUI.DrawTexture(a, t);
+        }
     }
 
     enum Split { horizontal, vertical };
