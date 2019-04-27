@@ -129,7 +129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &116776614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -369,6 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   block: {fileID: 1893173808918956567, guid: 5eddcc1e23b15ed419e8efb2f399e9a9, type: 3}
   bg: {fileID: 1893173808918956567, guid: 9b96bb90de48eb647a4037478697ef5f, type: 3}
+  Scoreboard: {fileID: 116776613}
 --- !u!1 &1324619730
 GameObject:
   m_ObjectHideFlags: 0

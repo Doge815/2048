@@ -14,7 +14,7 @@ public class Main : MonoBehaviour
 
     public GameObject block;
     public GameObject bg;
-    private GameObject Scoreboard;
+    public GameObject Scoreboard;
 
     private GameObject holder;
     public GameObject Holder { get => holder; }
@@ -23,6 +23,9 @@ public class Main : MonoBehaviour
 
     private static int score = 0;
     public static int Score { get => score; private set => score = value; }
+
+    enum Split { horizontal, vertical };
+    enum Direction { left, right };
     void Start()
     {
         holder = GameObject.Find("Holder");
@@ -33,15 +36,8 @@ public class Main : MonoBehaviour
         #region background
         GameObject g = Instantiate(bg, holder.transform);
         g.GetComponent<RectTransform>().sizeDelta = new Vector2(Min, Min);
-
-        Scoreboard = Instantiate(new GameObject(), Holder.transform);
-        TextMeshPro t = Scoreboard.gameObject.AddComponent<TextMeshPro>();
-        t.rectTransform.anchoredPosition = new Vector2(0, Holder.GetComponent<RectTransform>().rect.size.y);
-        t.rectTransform.position = new Vector3(Min / 4, Min / -4, 0);
-        t.enableAutoSizing = true;
-        t.fontSizeMin = 2;
-        t.fontSizeMax = 800;
-        t.text = "lol";
+        Scoreboard.GetComponent<RectTransform>().sizeDelta = new Vector2((holder.GetComponent<RectTransform>().rect.size.x - Min)/2, (holder.GetComponent<RectTransform>().rect.size.y - Min) / 2);
+        Scoreboard.GetComponent<RectTransform>().position = new Vector3((holder.GetComponent<RectTransform>().rect.size.x -Min) / 4, Min / 2);
         #endregion
         Box[0][0] = new Block(block, new Point(0, 0), 2);
         Box[0][2] = new Block(block, new Point(2, 0), 2);
@@ -67,8 +63,6 @@ public class Main : MonoBehaviour
         GUI.color = origin;
     }
 
-    enum Split { horizontal, vertical };
-    enum Direction { left, right };
     void Update()
     {       
         int? split = null;
@@ -172,6 +166,7 @@ public class Main : MonoBehaviour
         #endregion
         GC.Collect();
     }
+
 
     int funny = 0;
     private void whynot()
