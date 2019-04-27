@@ -36,7 +36,7 @@ public class Main : MonoBehaviour
         #region background
         GameObject g = Instantiate(bg, holder.transform);
         g.GetComponent<RectTransform>().sizeDelta = new Vector2(Min, Min);
-        Scoreboard.GetComponent<RectTransform>().sizeDelta = new Vector2((holder.GetComponent<RectTransform>().rect.size.x - Min)/2, (holder.GetComponent<RectTransform>().rect.size.y - Min) / 2);
+        Scoreboard.GetComponent<RectTransform>().sizeDelta = new Vector2((holder.GetComponent<RectTransform>().rect.size.x - Min)/2, holder.GetComponent<RectTransform>().rect.size.y);
         Scoreboard.GetComponent<RectTransform>().position = new Vector3((holder.GetComponent<RectTransform>().rect.size.x -Min) / 4, Min / 2);
         #endregion
         Box[0][0] = new Block(block, new Point(0, 0), 2);
