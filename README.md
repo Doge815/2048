@@ -2,9 +2,9 @@
 Pls don't read the code!
 
 Goals:
-normal version            (✔)
-unlimited sizable version (✔)
-4D version                 X
-Play- and Appstore         X
-earn 1.000.000 $           X
+normal version            (✔) |
+unlimited sizable version (✔) |
+4D version                 ✘  |
+Play- and Appstore         ✘  |
+earn 1.000.000 $           ✘
 
