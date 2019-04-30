@@ -24,12 +24,6 @@ public class Main : MonoBehaviour
 
     enum Split { horizontal, vertical };
     enum Direction { left, right };
-
-    private static int score = 0;
-    public static int Score { get => score; private set => score = value; }
-
-    enum Split { horizontal, vertical };
-    enum Direction { left, right };
     void Start()
     {
         Min = Mathf.Min(holder.GetComponent<RectTransform>().rect.size.x, holder.GetComponent<RectTransform>().rect.size.y);
