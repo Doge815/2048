@@ -26,6 +26,7 @@ public class Main : MonoBehaviour
 
     enum Split { horizontal, vertical };
     enum Direction { left, right };
+
     void Start()
     {
         holder = GameObject.Find("Holder");
@@ -41,7 +42,7 @@ public class Main : MonoBehaviour
         #endregion
         Box[0][0] = new Block(block, new Point(0, 0), 2);
         Box[0][2] = new Block(block, new Point(2, 0), 2);
-        //InvokeRepeating("whynot", 0.5f, 0.1f);
+        InvokeRepeating("whynot", 0.5f, 0.1f);
     }
     void OnGUI()
     {
@@ -108,25 +109,30 @@ public class Main : MonoBehaviour
         }
         #endregion
         #region move blocks
-        for (int i = 0; i < Size; i++)
+        void mover<T>(T[][] obj)
         {
-            List<Block> TempList = (from t in Temp[i] where t != null select t).ToList();
-            for (int u = 1; u < TempList.Count; u++)
+
+            for (int i = 0; i < Size; i++)
             {
-                if (TempList[u].Value == TempList[u - 1].Value)
+                List<T> TempList = (from t in obj[i] where t != null select t).ToList();
+                for (int u = 1; u < TempList.Count; u++)
                 {
-                    TempList[u].Value *= 2;
-                    Score += TempList[u].Value;
-                    Destroy(TempList[u - 1].Box);
-                    TempList.RemoveAt(u - 1);
+                    var o = obj as Block;
+                    if (TempList[u].Value == TempList[u - 1].Value)
+                    {
+                        TempList[u].Value *= 2;
+                        Score += TempList[u].Value;
+                        Destroy(TempList[u - 1].Box);
+                        TempList.RemoveAt(u - 1);
+                    }
                 }
+                obj[i] = new T[Size];
+                for (int u = 0; u < TempList.Count; u++)
+                {
+                    obj[i][(direction == (int)Direction.right) ? (Size - u - 1) : (u)] = TempList[(direction == (int)Direction.right) ? (TempList.Count - u - 1) : (u)];
+                }
+                //if (direction == (int)Direction.right) Array.Reverse(Temp[i]);
             }
-            Temp[i] = new Block[Size];
-            for (int u = 0; u < TempList.Count; u++)
-            {
-                Temp[i][(direction == (int)Direction.right) ? (Size - u - 1) : (u)] = TempList[(direction == (int)Direction.right) ? (TempList.Count - u - 1) : (u)];
-            }
-            //if (direction == (int)Direction.right) Array.Reverse(Temp[i]);
         }
         #endregion
         #region rebuild array
